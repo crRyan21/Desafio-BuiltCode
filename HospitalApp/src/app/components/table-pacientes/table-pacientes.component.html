@@ -1,0 +1,118 @@
+<table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Data de Nascimento</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of pacientes" >
+        <th scope="row">{{ item.idPaciente }}</th>
+        <td>{{item.nome}}</td>
+        <td>{{item.birdDate | date}}</td>
+        <td>{{ item.cpf }}</td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deletePaciente(item)">Deletar</button>
+          </td>
+      </tr>
+     
+    </tbody>
+  </table>
+
+  <div style="display: flex;text-align: center;justify-content: center;margin-bottom: 20px;" >
+    <div class="item_nav" style="margin-right: 10px;" >
+      <button class="btn btn-dark btn-sm ml-1"
+      [class.active]="aba =='cadastrar'"
+      (click)="aba = 'cadastrar'"
+      >Cadastrar</button>
+  </div>
+  <div class="item_nav" >
+      <button class="btn btn-dark btn-sm ml-1"
+      [class.active]="aba =='atualizar'"
+      (click)="aba = 'atualizar'"
+      >Atualizar</button>
+  </div>
+  </div>
+
+  <section [ngSwitch]="aba">
+
+    <form   *ngSwitchCase="'cadastrar'" method="POST"   (ngSubmit)="f.form.valid && savePaciente(f)" #f="ngForm"  novalidate style=" width: 850px;margin: 0 auto;" >
+      <h3 style="text-align: center;" >Cadastrar</h3>
+      <div class="form-group row" style="justify-content:center ;" >
+        <label for="staticEmail" class="col-sm-2 col-form-label">Nome:</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" value="" 
+         [(ngModel)]="paciente.nome" name="nome" id="nome" #model="ngModel"   [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+          >
+        </div>
+      </div>
+      <div class="form-group row" style="justify-content:center ;" >
+        <label  class="col-sm-2 col-form-label">Data de Nascimento:</label>
+        <div class="col-sm-5">
+          <input type="date" class="form-control" value=""
+          [(ngModel)]="paciente.birdDate" name="birdDate" id="birdDate" #model="ngModel"   [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+          >
+        </div>
+      </div>
+      <div class="form-group row" style="justify-content:center ;" >
+          <label for="staticEmail" class="col-sm-2 col-form-label">CPF:</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" value="" maxlength="14"
+            [(ngModel)]="paciente.cpf" name="cpf" id="cpf" #model="ngModel"   [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+            >
+          </div>
+        </div>
+        <div class="form-group row" style="justify-content:center ;" >
+          <button class="btn btn-primary" type="submit" value="Submit" style="justify-content:center ;" 
+          >Salvar
+          </button>
+        </div>
+    </form>
+
+    <form   *ngSwitchCase="'atualizar'" method="POST"   (ngSubmit)="f.form.valid && updatePaciente(f)" #f="ngForm"  novalidate style=" width: 850px;margin: 0 auto;" >
+      <h3 style="text-align: center;" >Atualizar</h3>
+      <div class="form-group row" style="justify-content:center ;" >
+        <label for="staticEmail" class="col-sm-2 col-form-label">idPaciente:</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" value="" 
+         [(ngModel)]="paciente.idPaciente" name="nome" id="nome" #model="ngModel"   [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+          >
+        </div>
+      </div>
+      <div class="form-group row" style="justify-content:center ;" >
+        <label for="staticEmail" class="col-sm-2 col-form-label">Nome:</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" value="" 
+         [(ngModel)]="paciente.nome" name="nome" id="nome" #model="ngModel"   [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+          >
+        </div>
+      </div>
+      <div class="form-group row" style="justify-content:center ;" >
+        <label  class="col-sm-2 col-form-label">Data de Nascimento:</label>
+        <div class="col-sm-5">
+          <input type="date" class="form-control" value=""
+          [(ngModel)]="paciente.birdDate" name="birdDate" id="birdDate" #model="ngModel"   [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+          >
+        </div>
+      </div>
+      <div class="form-group row" style="justify-content:center ;" >
+          <label for="staticEmail" class="col-sm-2 col-form-label">CPF:</label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" value="" maxlength="14"
+            [(ngModel)]="paciente.cpf" name="cpf" id="cpf" #model="ngModel"   [ngClass]="{ 'is-invalid': f.submitted && model.invalid }"
+            >
+          </div>
+        </div>
+        <div class="form-group row" style="justify-content:center ;" >
+          <button class="btn btn-primary" type="submit" value="Submit" style="justify-content:center ;" 
+          >Salvar
+          </button>
+        </div>
+    </form>
+
+    
+    
+  </section>
